@@ -497,7 +497,22 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      police_walk_0: -7919839844482737197
+      police_walk_1: -7719952686285944735
+      police_walk_10: -9029060200020578770
+      police_walk_11: 8200072537271986936
+      police_walk_12: -4649563244050984443
+      police_walk_13: 7064367185227010753
+      police_walk_14: 5002967079453566837
+      police_walk_2: -3436970664294844845
+      police_walk_3: -8626034609807082936
+      police_walk_4: -9103443067272793443
+      police_walk_5: 6109856246335919598
+      police_walk_6: 2882711754759981473
+      police_walk_7: 8376278209284456945
+      police_walk_8: 4214779278734896286
+      police_walk_9: -1492794127452157094
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
