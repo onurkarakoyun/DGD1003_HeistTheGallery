@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class CharacterSwitcher : MonoBehaviour
@@ -8,10 +9,7 @@ public class CharacterSwitcher : MonoBehaviour
     private GameObject currentCharacter;
     private GameObject inactiveCharacter;
 
-    private bool timerRunning = false;
-    private float timer = 0f;
-    public float limitTime = 15f;
-
+    private bool canSwitch = true;
     void Start()
     {
        if (Character.activeSelf)
@@ -28,9 +26,10 @@ public class CharacterSwitcher : MonoBehaviour
 
    void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetKeyDown(KeyCode.Z) && canSwitch)
         {
             SwitchCharacter();
+            StartCoroutine(SwitchCooldown());
         }
     }
 
@@ -49,24 +48,16 @@ public class CharacterSwitcher : MonoBehaviour
         GameObject temp = currentCharacter;
         currentCharacter = inactiveCharacter;
         inactiveCharacter = temp;
-        if (currentCharacter == Character)
-        {
-            timer = 0;
-            timerRunning = true;
-        }
-        else
-        {
-            timerRunning = false;
-            timer = 0;
-        }
-
-
-
-
 
     }
 
+    IEnumerator SwitchCooldown()
+    {
 
+        canSwitch = false;
+        yield return new WaitForSeconds(5f);
+        canSwitch = true;
+    }
 
 
 
