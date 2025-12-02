@@ -3,19 +3,18 @@ using System.Collections;
 
 public class CharacterSwitcher : MonoBehaviour
 {
-    public GameObject Character;      // Ýlk karakter (süre limiti olan)
-    public GameObject Character2;     // Ýkinci karakter (süresiz)
+    public GameObject Character;      
+    public GameObject Character2;     
 
     private GameObject currentCharacter;
     private GameObject inactiveCharacter;
 
-    private bool canSwitch = true;    // Karakter deðiþtirilebilir mi?
+    private bool canSwitch = true;   
 
-    public float firstCharacterTime = 10f; // Ýlk karakterin süre limiti (10 saniye)
-
+    public float firstCharacterTime = 10f; 
     void Start()
     {
-        // Baþlangýçta hangisi aktif ise onu current yap
+       
         if (Character.activeSelf)
         {
             currentCharacter = Character;
