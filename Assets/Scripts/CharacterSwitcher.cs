@@ -8,6 +8,10 @@ public class CharacterSwitcher : MonoBehaviour
     private GameObject currentCharacter;
     private GameObject inactiveCharacter;
 
+    private bool timerRunning = false;
+    private float timer = 0f;
+    public float limitTime = 15f;
+
     void Start()
     {
        if (Character.activeSelf)
@@ -44,7 +48,17 @@ public class CharacterSwitcher : MonoBehaviour
 
         GameObject temp = currentCharacter;
         currentCharacter = inactiveCharacter;
-        inactiveCharacter = temp;   
+        inactiveCharacter = temp;
+        if (currentCharacter == Character)
+        {
+            timer = 0;
+            timerRunning = true;
+        }
+        else
+        {
+            timerRunning = false;
+            timer = 0;
+        }
 
 
 
