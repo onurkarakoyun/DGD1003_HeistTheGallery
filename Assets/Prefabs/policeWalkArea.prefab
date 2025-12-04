@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7799138892670829069}
   m_Layer: 0
-  m_Name: "police y\xFCr\xFCme alan\u0131"
+  m_Name: policeWalkArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

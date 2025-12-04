@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8042090507717777492}
   - component: {fileID: 7903353423330538486}
   m_Layer: 0
-  m_Name: kolon1
+  m_Name: column
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -148,6 +148,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df17053d631cec244aed1a2a1d2f35c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  columnRenderer: {fileID: 602133732246286172}
+  interactionText: {fileID: 7839646155168394481}
   hideMessage: E - Saklan
   exitMessage: "E - \xC7\u0131k"
 --- !u!1 &1087305922283976953
@@ -269,7 +271,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &9014026856535072523
 RectTransform:
   m_ObjectHideFlags: 0
