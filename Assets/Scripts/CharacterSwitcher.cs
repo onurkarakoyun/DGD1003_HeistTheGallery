@@ -30,13 +30,38 @@ public class CharacterSwitcher : MonoBehaviour
         }
     }
 
-   void Update()
+    [System.Obsolete]
+    void Update()
     {
         if (Input.GetKeyDown(KeyCode.Z) && canSwitch)
         {
+            // YENİ: Önce polis kontrolü yap!
+            if (CheckIfChased())
+            {
+                Debug.Log("Polis seni kovalarken kılık değiştiremezsin!");
+                return; // Fonksiyonu burada durdur, aşağıya inip karakter değiştirme
+            }
+
             SwitchCharacter();
             StartCoroutine(SwitchCooldown());
         }
+    }
+
+    [System.Obsolete]
+    bool CheckIfChased()
+    {
+        // Sahnedeki "GuardAI" scriptine sahip tüm objeleri bul
+        GuardAI[] guards = FindObjectsOfType<GuardAI>();
+
+        // Tek tek hepsine sor: Beni kovalıyor musun?
+        foreach (GuardAI guard in guards)
+        {
+            if (guard.isChasing)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     void SwitchCharacter()

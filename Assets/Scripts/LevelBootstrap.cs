@@ -3,7 +3,7 @@ using UnityEngine.Rendering.Universal;
 
 public static class LevelBootstrap
 {
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+    
     static void Init()
     {
         var player = Object.FindAnyObjectByType<PlayerController>();

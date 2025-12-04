@@ -16,7 +16,7 @@ public class GuardAI : MonoBehaviour
     private SpriteRenderer sr;
 
     private bool goingRight = true;
-    private bool isChasing = false;
+    public bool isChasing = false;
 
     void Start()
     {

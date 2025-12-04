@@ -1,95 +1,127 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections; // Coroutine için gerekli
 
 public class HidingSpot : MonoBehaviour
 {
-    [Header("Ayarlar")]
-    private TextMeshProUGUI interactionText; // Ekranda görünecek Text objesini buraya sürükle
+    [Header("Gerekli Bileşenler")]
+    public SpriteRenderer columnRenderer; 
+    public TextMeshProUGUI interactionText; 
+
+    [Header("Mesajlar")]
     public string hideMessage = "E - Saklan";
     public string exitMessage = "E - Çık";
 
-    private bool isPlayerInRange = false; // Oyuncu kolonun yanında mı?
-    private bool isPlayerHiding = false;  // Oyuncu şu an bu kolonda saklanıyor mu?
+    private bool isPlayerInRange = false; 
+    private bool isPlayerHiding = false;  
     
-    private PlayerController playerScript; // Oyuncunun scriptine erişim
+    // Titremeyi önlemek için kısa bir bekleme süresi kilidi
+    private bool canInteract = true; 
+
+    private PlayerController playerScript; 
     private SpriteRenderer playerRenderer;
     private Rigidbody2D playerRb;
+    
     private float originalGravity;
-    private string originalTag; // Oyuncunun orijinal etiketi (Player)
+    private int originalSortingOrder;
 
     void Start()
     {
-        interactionText = GetComponentInChildren<TextMeshProUGUI>();
-        // Başlangıçta yazıyı gizle
-        if(interactionText != null)
-            interactionText.gameObject.SetActive(false);
+        if (columnRenderer == null) columnRenderer = GetComponent<SpriteRenderer>();
+        if (interactionText == null) interactionText = GetComponentInChildren<TextMeshProUGUI>();
+        if(interactionText != null) interactionText.gameObject.SetActive(false);
     }
 
     void Update()
     {
-        // Eğer oyuncu alandaysa VE E tuşuna basarsa
-        if (isPlayerInRange && Input.GetKeyDown(KeyCode.E))
+        // Eğer oyuncu menzildeyse ve etkileşim kilidi açık ise (canInteract)
+        if (isPlayerInRange && canInteract && Input.GetKeyDown(KeyCode.E))
         {
             if (isPlayerHiding)
-            {
-                ExitHiding(); // Zaten saklanıyorsa çık
-            }
+                ExitHiding();
             else
-            {
-                EnterHiding(); // Saklanmıyorsa saklan
-            }
+                EnterHiding();
+        }
+
+        // EKSTRA GÜVENLİK: Saklanırken karakter kaymasın diye her kare hızını sıfırla
+        if (isPlayerHiding && playerRb != null)
+        {
+            playerRb.linearVelocity = Vector2.zero;
         }
     }
 
     void EnterHiding()
     {
+        if (playerScript == null) return;
+
         isPlayerHiding = true;
         
-        // 1. Oyuncu hareketini kilitle
-        playerScript.isHidden = true;
+        // 1. Fizik Ayarları (FreezeAll KULLANMIYORUZ, sadece hız kesiyoruz)
+        playerRb.linearVelocity = Vector2.zero;
+        playerRb.gravityScale = 0f;
+        // Sadece dönmeyi engelle, pozisyonu dondurma (bu titreme yapar)
+        playerRb.constraints = RigidbodyConstraints2D.FreezeRotation; 
 
-        // 2. Tag değiştir (Düşmanlar göremez)
+        // Karakteri kolonun tam merkezine ışınla (Kenarda köşede kalırsa çıkmış sayabilir)
+        playerScript.transform.position = new Vector3(transform.position.x, playerScript.transform.position.y, playerScript.transform.position.z);
+
+        // 2. Etiket ve Değişkenler
+        playerScript.isHidden = true;
         playerScript.gameObject.tag = "Untagged"; 
 
-        // 3. Yerçekimini ve Hızı Sıfırla (Yere batmayı engeller)
-        playerRb.linearVelocity = Vector2.zero;
-        playerRb.gravityScale = 0f; 
-
-        // 4. Görseli Saydamlaştır
-        Color hiddenColor = playerRenderer.color;
-        hiddenColor.a = 0.5f; 
-        playerRenderer.color = hiddenColor;
-        playerRenderer.sortingOrder = -1;
-
-        // NOT: Collider'ı KAPATMIYORUZ. Yanıp sönme sorunu buydu.
+        // 3. Görsel Ayarlar
+        originalSortingOrder = playerRenderer.sortingOrder;
         
+        if (columnRenderer != null)
+        {
+            // Karakteri arkaya at
+            playerRenderer.sortingOrder = columnRenderer.sortingOrder - 1; 
+            // Kolonu şeffaflaştır
+            Color colColor = columnRenderer.color;
+            colColor.a = 0.5f; 
+            columnRenderer.color = colColor;
+        }
+
         UpdateUIText(exitMessage);
+        
+        // İşlem yapıldıktan sonra 0.5 saniye tuşu kilitle (Titremeyi engeller)
+        StartCoroutine(InteractionCooldown());
     }
 
     void ExitHiding()
     {
         isPlayerHiding = false;
 
-        // 1. Hareketi aç
+        // 1. Fizik Geri Yükleme
         playerScript.isHidden = false;
-
-        // 2. Etiketi geri yükle
         playerScript.gameObject.tag = "Player";
-
-        // 3. Yerçekimini eski haline getir
         playerRb.gravityScale = originalGravity;
+        
+        // 2. Görsel Geri Yükleme
+        playerRenderer.sortingOrder = originalSortingOrder; 
 
-        // 4. Görünümü düzelt
-        Color normalColor = playerRenderer.color;
-        normalColor.a = 1f; 
-        playerRenderer.color = normalColor;
-        playerRenderer.sortingOrder = 0; 
+        if (columnRenderer != null)
+        {
+            Color colColor = columnRenderer.color;
+            colColor.a = 1f; 
+            columnRenderer.color = colColor;
+        }
 
         UpdateUIText(hideMessage);
+
+        // İşlem yapıldıktan sonra 0.5 saniye tuşu kilitle
+        StartCoroutine(InteractionCooldown());
     }
 
-    // Oyuncu Kolonun Yanına Geldiğinde
+    // Kısa süreliğine E tuşunu devre dışı bırakır
+    IEnumerator InteractionCooldown()
+    {
+        canInteract = false;
+        yield return new WaitForSeconds(0.2f); // 0.2 saniye bekle
+        canInteract = true;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
@@ -99,30 +131,28 @@ public class HidingSpot : MonoBehaviour
             playerRenderer = collision.GetComponent<SpriteRenderer>();
             playerRb = collision.GetComponent<Rigidbody2D>();
             
-            // Orjinal yerçekimi değerini kaydet
-            originalGravity = playerRb.gravityScale;
+            if(playerRb != null) originalGravity = playerRb.gravityScale;
 
             UpdateUIText(hideMessage);
             if(interactionText != null) interactionText.gameObject.SetActive(true);
         }
     }
 
-    // Oyuncu Kolonun Yanından Ayrıldığında
     private void OnTriggerExit2D(Collider2D collision)
     {
+        // Eğer saklanıyorsak, fizik motoru "çıktı" dese bile inanma.
+        // Çünkü saklanırken kımıldayamayız.
+        if (isPlayerHiding) return; 
+
         if (collision.GetComponent<PlayerController>() != null)
         {
             isPlayerInRange = false;
             if(interactionText != null) interactionText.gameObject.SetActive(false);
-            
-            // Eğer saklanırken oyuncu bir şekilde çıkarsa resetle
-            if (isPlayerHiding) ExitHiding();
         }
     }
 
     void UpdateUIText(string message)
     {
-        if (interactionText != null)
-            interactionText.text = message;
+        if (interactionText != null) interactionText.text = message;
     }
 }
