@@ -66,11 +66,11 @@ The game is a 2D cartoon-style stealth puzzle game where the main character trie
 
 Player – The Thief
 
-\- Can move, hide behind objects, and interact with the environment  
+\- Can move, hide behind objects, and interact with the environment
 
-\- Able to disable security panels and collect valuable paintings  
+\- Able to disable security panels and collect valuable paintings
 
-\- Limited stamina when sprinting to encourage strategic movement  
+\- Limited stamina when sprinting to encourage strategic movement
 
 
 
@@ -142,6 +142,8 @@ The game features progressive difficulty that increases naturally with each leve
 
 3\. Story and World
 
+
+
 ●Story Summary:
 
 
@@ -170,27 +172,83 @@ A disciplined employee who believes strongly in duty and order. They see the gal
 
 
 
-●World: \[Description of the game world (geography, culture, history)]
+●World:
 
-●Atmosphere: \[The game's intended atmosphere (e.g., dark, cheerful, tense)]
+
+
+The game takes place inside a realistic urban art gallery located in a modern city. The gallery features exhibition rooms, private collections, storage areas, and security zones. The main character is a known criminal who enters the gallery with the clear intent of stealing valuable artworks, rather than being morally justified or heroic.
+
+
+
+●Atmosphere: 
+
+
+
+The intended atmosphere is tense and suspenseful, encouraging careful movement and strategic thinking. While the visual style is cartoonish, the mood remains serious, mysterious, and immersive to keep players alert and cautious.
+
+
 
 4\. Visuals and Audio
 
-●Art Style: \[The visual style of the game (e.g., realistic, cartoon, pixel art)]
 
-●Interface (UI): \[Design and functionality of the game interface]
 
-●Music: \[The game's music and how it affects the atmosphere]
+●Art Style: 
 
-●Sound Effects: \[The game's sound effects and realism]
+
+
+The game features a 2D cartoon-style visual design with clean outlines, vibrant colors.
+
+
+
+●Interface (UI): 
+
+
+
+The user interface is minimal and clean, displaying only essential elements such as stamina, detection alerts, and objective indicators. The UI is designed to be easy to understand and non-intrusive.
+
+
+
+●Music: 
+
+
+
+The music consists of low-tempo, suspenseful background tracks that intensify during chase or alert moments, enhancing player tension and immersion.
+
+
+
+●Sound Effects: 
+
+
+
+Sound effects include footsteps and alarm sirens.
+
+
 
 5\. Additional Information
 
-●Reference Games: \[Games that inspired or are similar to this game]
+●Reference Games: 
 
-●Concept Art: \[Concept art and visuals for the game]
 
-●Other: \[Any other information to be added]
+
+\- Mark of the Ninja
+
+\- Monaco: What's Yours Is Mine
+
+
+
+●Concept Art: 
+
+
+
+Concept art includes early sketches of the main character, enemy guards, gallery rooms, and security devices to define the visual identity of the game.
+
+
+
+●Other: 
+
+
+
+The game is designed for PC platforms and focuses on short, replayable levels with increasing difficulty and optional challenges.
 
 
 
