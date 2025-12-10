@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      "GirisEkran\u0131_1_0": 6286926389156674475
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
