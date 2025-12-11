@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 6dc86a6305cc46b409be589569baee62
+guid: bbf6d46afa83dfe438c4483f4ccf5d19
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4600047320370858137
-    second: "yi\u011Fit 2_0"
+      213: 4525648263698465241
+    second: 1star_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "yi\u011Fit 2_0"
+      name: 1star_0
       rect:
         serializedVersion: 2
-        x: 126
-        y: 629
-        width: 3208
-        height: 4059
+        x: 0
+        y: 0
+        width: 1920
+        height: 1080
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 99841b07aa6a6df30800000000000000
-      internalID: 4600047320370858137
+      spriteID: 9d14c103e155ece30800000000000000
+      internalID: 4525648263698465241
       vertices: []
       indices: 
       edges: []
@@ -147,8 +147,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      "yi\u011Fit 2_0": 4600047320370858137
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

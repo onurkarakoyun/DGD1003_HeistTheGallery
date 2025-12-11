@@ -5,6 +5,7 @@ using TMPro;
 
 public class LevelManager : MonoBehaviour
 {
+    public string mainMenuSceneName = "MainMenu";
     public static LevelManager instance;
 
     [Header("Level Hedefleri")]
@@ -120,10 +121,25 @@ public class LevelManager : MonoBehaviour
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+    public void LoadMainMenu()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(mainMenuSceneName);
+    }
 
     public void NextLevel()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
+
+        if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
+        {
+            SceneManager.LoadScene(nextSceneIndex);
+        }
+        else
+        {
+            Debug.Log("Oyun bitti! Ana menüye dönülüyor.");
+            LoadMainMenu();
+        }
     }
 }
