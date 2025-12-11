@@ -103,6 +103,10 @@ public class GuardAI : MonoBehaviour
         if (collision.collider.CompareTag("Player"))
         {
             Debug.Log("YAKALANDIN!");
+            if (LevelManager.instance != null)
+            {
+                LevelManager.instance.GameOver();
+            }
         }
     }
 }
