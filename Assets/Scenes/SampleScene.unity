@@ -408,6 +408,10 @@ MonoBehaviour:
   target: {fileID: 2056301253}
   offset: {x: 0, y: 0, z: -10}
   smoothTime: 0
+  lockY: 1
+  useLimits: 1
+  minX: -10
+  maxX: 50
 --- !u!1 &581503684
 GameObject:
   m_ObjectHideFlags: 0
