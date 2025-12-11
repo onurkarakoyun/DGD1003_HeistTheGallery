@@ -7,6 +7,10 @@ public class LaserTrap : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log("Oyuncu lazere yakalandı!");
+            if (LevelManager.instance != null)
+            {
+                LevelManager.instance.GameOver();
+            }
         }
     }
 }

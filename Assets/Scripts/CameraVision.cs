@@ -7,6 +7,10 @@ public class CameraVision : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             Debug.Log("Yakalandın!");
+            if (LevelManager.instance != null)
+            {
+                LevelManager.instance.GameOver();
+            }
         }
     }
 }
