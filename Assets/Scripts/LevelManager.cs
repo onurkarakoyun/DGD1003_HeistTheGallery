@@ -63,7 +63,7 @@ public class LevelManager : MonoBehaviour
     void UpdateHUD()
     {
         if(timerText != null) 
-            timerText.text = "Süre: " + currentTime.ToString("F1");
+            timerText.text = "Time: " + currentTime.ToString("F1");
         
         if(paintingText != null)
             paintingText.text = collectedPaintings + " / " + totalPaintings;
