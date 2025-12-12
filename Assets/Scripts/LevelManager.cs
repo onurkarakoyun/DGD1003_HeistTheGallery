@@ -25,9 +25,18 @@ public class LevelManager : MonoBehaviour
     public Image[] checkmarks;
     public Image[] crosses;
 
+    [Header("Lose Panel İstatistikleri")]
+    public Image[] loseCheckmarks;
+    public Image[] loseCrosses;
+    
+
     [Header("HUD Textleri")]
     public TextMeshProUGUI timerText;
-    public TextMeshProUGUI paintingText;
+
+    [Header("HUD Görev Listesi")]
+    public TextMeshProUGUI missionCollectionText;
+    public TextMeshProUGUI missionTimeText;
+    public TextMeshProUGUI missionStealthText;
 
     private float currentTime;
     private int totalPaintings;
@@ -45,6 +54,7 @@ public class LevelManager : MonoBehaviour
         totalPaintings = FindObjectsOfType<StealableItem>().Length;
         
         UpdateHUD();
+        UpdateMissionTexts();
         winPanel.SetActive(false);
         losePanel.SetActive(false);
         gameHUD.SetActive(true);
@@ -57,22 +67,47 @@ public class LevelManager : MonoBehaviour
         {
             currentTime += Time.deltaTime;
             UpdateHUD();
+            if (currentTime > targetTime && missionTimeText != null)
+            {
+                missionTimeText.color = Color.red;
+            }
         }
     }
 
     void UpdateHUD()
     {
         if(timerText != null) 
-            timerText.text = "Time: " + currentTime.ToString("F1");
-        
-        if(paintingText != null)
-            paintingText.text = collectedPaintings + " / " + totalPaintings;
+            timerText.text = "Time : " + currentTime.ToString("F1");
+    }
+    void UpdateMissionTexts()
+    {
+        if (missionCollectionText != null)
+        {
+            missionCollectionText.text = $"- Steal all the pictures ({collectedPaintings}/{totalPaintings})";
+            
+            // Hepsi toplandıysa Yeşil yap
+            if (collectedPaintings >= totalPaintings)
+                missionCollectionText.color = Color.green;
+            else
+                missionCollectionText.color = Color.white;
+        }
+        if (missionTimeText != null)
+        {
+            missionTimeText.text = $"- Finish in Under {targetTime} Seconds ";
+            missionTimeText.color = Color.white;
+        }
+
+
+        if (missionStealthText != null)
+        {
+            missionStealthText.text = "- Don't get caught.";
+        }
     }
 
     public void CollectPainting()
     {
         collectedPaintings++;
-        UpdateHUD();
+        UpdateMissionTexts();
     }
 
     public void LevelComplete()
@@ -105,9 +140,22 @@ public class LevelManager : MonoBehaviour
         if (isGameOver) return;
         isGameOver = true;
         Time.timeScale = 0f;
+        bool collectedAll = (collectedPaintings >= totalPaintings);
+        bool timeSuccess = (currentTime <= targetTime);
+        SetLoseStatus(0, false);
+        SetLoseStatus(1, collectedAll);
+        SetLoseStatus(2, timeSuccess);
 
         gameHUD.SetActive(false);
         losePanel.SetActive(true);
+    }
+    void SetLoseStatus(int index, bool success)
+    {
+        if (loseCheckmarks.Length > index) 
+            loseCheckmarks[index].gameObject.SetActive(success);
+        
+        if (loseCrosses.Length > index) 
+            loseCrosses[index].gameObject.SetActive(!success);
     }
 
     void SetStatus(int index, bool success)
