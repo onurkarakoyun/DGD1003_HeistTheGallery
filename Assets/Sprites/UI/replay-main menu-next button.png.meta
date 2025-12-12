@@ -197,7 +197,10 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      replay-main menu-next button_0: 7481832984302482225
+      replay-main menu-next button_1: 7886636297127512105
+      replay-main menu-next button_2: 7818780452646349587
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
