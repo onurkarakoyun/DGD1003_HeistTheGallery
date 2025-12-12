@@ -150,8 +150,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   columnRenderer: {fileID: 602133732246286172}
   interactionText: {fileID: 7839646155168394481}
-  hideMessage: E - Saklan
-  exitMessage: "E - \xC7\u0131k"
+  hideMessage: E - Hide
+  exitMessage: E - Exit
 --- !u!1 &1087305922283976953
 GameObject:
   m_ObjectHideFlags: 0
@@ -321,8 +321,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: ff6bef54aa095054fa5405130120d57b, type: 2}
+  m_sharedMaterial: {fileID: -878072507719248056, guid: ff6bef54aa095054fa5405130120d57b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

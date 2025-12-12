@@ -408,6 +408,10 @@ MonoBehaviour:
   target: {fileID: 2056301253}
   offset: {x: 0, y: 0, z: -10}
   smoothTime: 0
+  lockY: 1
+  useLimits: 1
+  minX: -10
+  maxX: 50
 --- !u!1 &581503684
 GameObject:
   m_ObjectHideFlags: 0
@@ -708,7 +712,7 @@ SpriteRenderer:
   m_Size: {x: 16, y: 8.72}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &999135946
@@ -955,7 +959,7 @@ SpriteRenderer:
   m_Size: {x: 16, y: 8.72}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1678809004
@@ -1552,6 +1556,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1540015343653120346, guid: 3df081e92722c2849b7e7249d8554eb0, type: 3}
       propertyPath: m_Name
+      value: NormalChar
+      objectReference: {fileID: 0}
+    - target: {fileID: 1540015343653120346, guid: 3df081e92722c2849b7e7249d8554eb0, type: 3}
+      propertyPath: m_TagString
       value: NormalChar
       objectReference: {fileID: 0}
     - target: {fileID: 8609767094292283762, guid: 3df081e92722c2849b7e7249d8554eb0, type: 3}

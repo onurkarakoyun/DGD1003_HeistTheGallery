@@ -29,19 +29,5 @@ public class MovingPlatform : MonoBehaviour
         motor.motorSpeed = motor.motorSpeed * -1;
         joint.motor = motor;
     }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.GetComponent<PlayerController>() != null)
-        {
-            collision.transform.SetParent(this.transform);
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.GetComponent<PlayerController>() != null)
-        {
-            collision.transform.SetParent(null);
-        }
-    }
+    
 }

@@ -18,6 +18,7 @@ public class HidingSpot : MonoBehaviour
     private PlayerController playerScript; 
     private SpriteRenderer playerRenderer;
     private Rigidbody2D playerRb;
+    private Collider2D playerCollider;
     private float originalGravity;
     private int originalSortingOrder;
     void Start()
@@ -50,6 +51,7 @@ public class HidingSpot : MonoBehaviour
         playerRb.linearVelocity = Vector2.zero;
         playerRb.gravityScale = 0f;
         playerRb.constraints = RigidbodyConstraints2D.FreezeRotation; 
+        if (playerCollider != null) playerCollider.isTrigger = true;
         playerScript.transform.position = new Vector3(transform.position.x, playerScript.transform.position.y, playerScript.transform.position.z);
         playerScript.isHidden = true;
         playerScript.gameObject.tag = "Untagged"; 
@@ -73,6 +75,7 @@ public class HidingSpot : MonoBehaviour
         playerScript.isHidden = false;
         playerScript.gameObject.tag = "Player";
         playerRb.gravityScale = originalGravity;
+        if (playerCollider != null) playerCollider.isTrigger = false;
         playerRenderer.sortingOrder = originalSortingOrder; 
 
         if (columnRenderer != null)
@@ -100,6 +103,7 @@ public class HidingSpot : MonoBehaviour
             playerScript = collision.GetComponent<PlayerController>();
             playerRenderer = collision.GetComponent<SpriteRenderer>();
             playerRb = collision.GetComponent<Rigidbody2D>();
+            playerCollider = collision.GetComponent<Collider2D>();
             
             if(playerRb != null) originalGravity = playerRb.gravityScale;
 
