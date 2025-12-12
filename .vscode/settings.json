@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "DGD1003_FinalProject.sln"
+    "dotnet.defaultSolution": "FinalProject.sln"
 }
