@@ -36,11 +36,10 @@ public class AudioManager : MonoBehaviour
     }
     public void PlayWinLoseSound(AudioClip clip)
     {
-        if (musicSource.isPlaying)
-        {
-            musicSource.Stop();
-        }
-        musicSource.PlayOneShot(clip);
+        musicSource.Stop();
+        musicSource.clip = clip;
+        musicSource.loop = false;
+        musicSource.Play();
 
     }
 
@@ -73,10 +72,20 @@ public class AudioManager : MonoBehaviour
         {
             targetClip = gameMusic;
         }
-        if (musicSource.clip == targetClip) return;
-        musicSource.Stop();
-        musicSource.clip = targetClip;
-        musicSource.Play();
+        if (musicSource.clip != targetClip)
+        {
+            musicSource.Stop();
+            musicSource.clip = targetClip;
+            musicSource.loop = true;
+            musicSource.Play();
+        }
+        else
+        {
+            if (!musicSource.isPlaying)
+            {
+                musicSource.Play();
+            }
+        }
     }
     public void PlaySFX(AudioClip clip)
     {

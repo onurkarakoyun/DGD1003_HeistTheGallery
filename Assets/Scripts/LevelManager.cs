@@ -180,20 +180,21 @@ public class LevelManager : MonoBehaviour
 
     public void RestartLevel()
     {
+        AudioListener.pause = false;
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        AudioListener.pause = false;
     }
     public void LoadMainMenu()
     {
+        AudioListener.pause = false;
         Time.timeScale = 1f;
         SceneManager.LoadScene(mainMenuSceneName);
     }
 
     public void NextLevel()
     {
-        Time.timeScale = 1f;
         AudioListener.pause = false;
+        Time.timeScale = 1f;
         int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
 
         if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
