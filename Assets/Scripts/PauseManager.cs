@@ -32,12 +32,14 @@ public class PauseManager : MonoBehaviour
         pausePanel.SetActive(true); 
         Time.timeScale = 0f;
         isPaused = true;
+        AudioListener.pause = true;
     }
     public void ResumeGame()
     {
         pausePanel.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
+        AudioListener.pause = false;
     }
     public void LoadMainMenu()
     {

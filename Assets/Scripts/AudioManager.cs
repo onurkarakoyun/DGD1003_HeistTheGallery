@@ -23,6 +23,7 @@ public class AudioManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+
         musicSource = GetComponent<AudioSource>();
         if (musicSource == null)
         {
@@ -31,7 +32,16 @@ public class AudioManager : MonoBehaviour
         
         musicSource.loop = true;
         musicSource.playOnAwake = false;
-        musicSource.volume = 0.5f;
+        musicSource.ignoreListenerPause = true; 
+    }
+    public void PlayWinLoseSound(AudioClip clip)
+    {
+        if (musicSource.isPlaying)
+        {
+            musicSource.Stop();
+        }
+        musicSource.PlayOneShot(clip);
+
     }
 
     void Start()

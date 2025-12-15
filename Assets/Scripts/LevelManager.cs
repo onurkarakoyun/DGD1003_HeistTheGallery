@@ -38,6 +38,10 @@ public class LevelManager : MonoBehaviour
     public TextMeshProUGUI missionTimeText;
     public TextMeshProUGUI missionStealthText;
 
+    [Header("Bitiş Sesleri")]
+    public AudioClip winSound;
+    public AudioClip loseSound;
+
     private float currentTime;
     private int totalPaintings;
     private int collectedPaintings;
@@ -115,6 +119,11 @@ public class LevelManager : MonoBehaviour
         if (isGameOver) return;
         isGameOver = true;
         Time.timeScale = 0f;
+        AudioListener.pause = true;
+        if (AudioManager.instance != null)
+        {
+            AudioManager.instance.PlayWinLoseSound(winSound);
+        }
 
         gameHUD.SetActive(false);
         winPanel.SetActive(true);
@@ -139,6 +148,11 @@ public class LevelManager : MonoBehaviour
     {
         if (isGameOver) return;
         isGameOver = true;
+        AudioListener.pause = true;
+        if (AudioManager.instance != null)
+        {
+            AudioManager.instance.PlayWinLoseSound(loseSound);
+        }
         Time.timeScale = 0f;
         bool collectedAll = (collectedPaintings >= totalPaintings);
         bool timeSuccess = (currentTime <= targetTime);
@@ -166,6 +180,7 @@ public class LevelManager : MonoBehaviour
 
     public void RestartLevel()
     {
+        AudioListener.pause = false;
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
@@ -178,6 +193,7 @@ public class LevelManager : MonoBehaviour
     public void NextLevel()
     {
         Time.timeScale = 1f;
+        AudioListener.pause = false;
         int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
 
         if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)

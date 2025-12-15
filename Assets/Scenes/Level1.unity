@@ -14269,6 +14269,8 @@ MonoBehaviour:
   missionCollectionText: {fileID: 416433157}
   missionTimeText: {fileID: 972613556}
   missionStealthText: {fileID: 2075657548}
+  winSound: {fileID: 8300000, guid: 8e27a99094855374b9e6e8a0c294471b, type: 3}
+  loseSound: {fileID: 8300000, guid: f6d7db1fa45a6d741b7ff0b20f381dc4, type: 3}
 --- !u!4 &1509798362
 Transform:
   m_ObjectHideFlags: 0
