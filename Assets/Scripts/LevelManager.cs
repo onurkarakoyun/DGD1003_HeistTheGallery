@@ -180,9 +180,9 @@ public class LevelManager : MonoBehaviour
 
     public void RestartLevel()
     {
-        AudioListener.pause = false;
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        AudioListener.pause = false;
     }
     public void LoadMainMenu()
     {
