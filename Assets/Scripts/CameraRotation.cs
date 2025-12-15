@@ -6,6 +6,9 @@ public class CameraRotation : MonoBehaviour
     public float leftAngle = -45f;
     public float rightAngle = 45f;
     private bool rotatingRight = true;
+    [Header("Ses")]
+    public AudioSource camAudio;
+    public AudioClip rotateSound;
 
     void Update()
     {
@@ -24,6 +27,11 @@ public class CameraRotation : MonoBehaviour
             {
                 rotatingRight = true;
             }
+        }
+        if (!camAudio.isPlaying)
+        {
+        camAudio.clip = rotateSound;
+        camAudio.Play();
         }
     }
 }

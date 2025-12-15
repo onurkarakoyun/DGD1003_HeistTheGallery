@@ -13,6 +13,9 @@ public class PlayerController : MonoBehaviour
     float moveX;
     bool isGrounded;
     public bool isHidden = false;
+    [Header("Ses Efektleri")]
+    public AudioSource audioSource;
+    public AudioClip runSound;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -42,6 +45,7 @@ public class PlayerController : MonoBehaviour
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
             anim.SetBool("isJumping", true);
         }
+        HandleFootsteps();
     }
     void FixedUpdate()
     {
@@ -54,4 +58,22 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("isJumping", false);
         }
     }
+    void HandleFootsteps()
+{
+    // Yerdeysek VE hareket ediyorsak (Hız 0.1'den büyükse)
+    if (isGrounded && Mathf.Abs(rb.linearVelocity.x) > 0.1f)
+    {
+        // Eğer ses zaten çalmıyorsa başlat
+        if (!audioSource.isPlaying)
+        {
+            audioSource.clip = runSound;
+            audioSource.Play();
+        }
+    }
+    else
+    {
+        // Durduysak veya zıpladıysak sesi kes
+        audioSource.Stop();
+    }
+}
 }
