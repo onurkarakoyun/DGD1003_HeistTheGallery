@@ -42,6 +42,12 @@ public class LevelManager : MonoBehaviour
     public AudioClip winSound;
     public AudioClip loseSound;
 
+    [Header("Tutorial Ayarları")]
+    public bool isTutorialLevel = false;
+    public GameObject tutorialCompletePanel;
+    public GameObject missionListParent;
+    private Vector3 currentCheckpointPos;
+
     private float currentTime;
     private int totalPaintings;
     private int collectedPaintings;
@@ -59,10 +65,18 @@ public class LevelManager : MonoBehaviour
         
         UpdateHUD();
         UpdateMissionTexts();
+        if (isTutorialLevel)
+        {
+            if (missionListParent != null)
+                missionListParent.SetActive(false);
+            if(timerText != null) timerText.gameObject.SetActive(false);
+        }
         winPanel.SetActive(false);
         losePanel.SetActive(false);
         gameHUD.SetActive(true);
         Time.timeScale = 1f;
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null) currentCheckpointPos = player.transform.position;
     }
 
     void Update()
@@ -124,29 +138,44 @@ public class LevelManager : MonoBehaviour
         {
             AudioManager.instance.PlayWinLoseSound(winSound);
         }
-
         gameHUD.SetActive(false);
-        winPanel.SetActive(true);
+        if (isTutorialLevel)
+        {
+            if (tutorialCompletePanel != null)
+                tutorialCompletePanel.SetActive(true);
+            else
+                Debug.LogError("Tutorial Panel atanmamış!");
+        }
+        else
+        {
+            winPanel.SetActive(true);
 
-        int stars = 1;
-        bool collectedAll = (collectedPaintings >= totalPaintings);
-        bool timeSuccess = (currentTime <= targetTime);
+            int stars = 1; 
+            bool collectedAll = (collectedPaintings >= totalPaintings);
+            bool timeSuccess = (currentTime <= targetTime);
 
-        if (collectedAll) stars++;
-        if (timeSuccess) stars++;
+            if (collectedAll) stars++;
+            if (timeSuccess) stars++;
 
-        star1Image.SetActive(stars == 1);
-        star2Image.SetActive(stars == 2);
-        star3Image.SetActive(stars == 3);
+            star1Image.SetActive(stars == 1);
+            star2Image.SetActive(stars == 2);
+            star3Image.SetActive(stars == 3);
 
-        SetStatus(0, true);
-        SetStatus(1, collectedAll);
-        SetStatus(2, timeSuccess);
+            SetStatus(0, true);
+            SetStatus(1, collectedAll);
+            SetStatus(2, timeSuccess);
+        }
     }
 
+    [System.Obsolete]
     public void GameOver()
     {
         if (isGameOver) return;
+        if (isTutorialLevel)
+        {
+            RespawnPlayer();
+            return;
+        }
         isGameOver = true;
         AudioListener.pause = true;
         if (AudioManager.instance != null)
@@ -206,5 +235,30 @@ public class LevelManager : MonoBehaviour
             Debug.Log("Oyun bitti! Ana menüye dönülüyor.");
             LoadMainMenu();
         }
+    }
+    public void SetCheckpoint(Vector3 newPos)
+    {
+        currentCheckpointPos = newPos;
+        Debug.Log("Checkpoint Kaydedildi!");
+    }
+
+    [System.Obsolete]
+    void RespawnPlayer()
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if(player == null) player = FindObjectOfType<PlayerController>().gameObject;
+
+        if (player != null)
+        {
+            player.transform.position = currentCheckpointPos;
+        }
+        GuardAI[] guards = FindObjectsOfType<GuardAI>();
+        foreach (GuardAI guard in guards)
+        {
+            guard.isChasing = false;
+        }
+        AudioListener.pause = false; 
+        
+        Debug.Log("Tutorial: Checkpoint'e dönüldü.");
     }
 }

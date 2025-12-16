@@ -63,7 +63,7 @@ public class CharacterSwitcher : MonoBehaviour
                 if (cooldownCanvas != null) cooldownCanvas.SetActive(false); // Barı gizle
             }
         }
-        if (Input.GetKeyDown(KeyCode.Z) && !isCooldown)
+        if (Input.GetKeyDown(KeyCode.Q) && !isCooldown)
         {
             if (CheckIfChased())
             {
