@@ -19,6 +19,9 @@ public class GuardAI : MonoBehaviour
     private bool goingRight = true;
     
     public bool isChasing = false; 
+    [Header("Ses Efektleri")]
+    public AudioSource guardAudio;
+    public AudioClip chaseSound;
 
     void Start()
     {
@@ -45,11 +48,20 @@ public class GuardAI : MonoBehaviour
         {
             moveDirection = (player.position - transform.position).normalized;
             ChasePlayer(moveDirection);
+            if (!guardAudio.isPlaying)
+            {
+            guardAudio.clip = chaseSound;
+            guardAudio.Play();
+            }
         }
         else
         {
             Patrol();
             moveDirection = goingRight ? Vector2.right : Vector2.left;
+            if (guardAudio.isPlaying)
+            {
+            guardAudio.Stop();
+            }
         }
 
         if (visionArea != null)
@@ -105,6 +117,7 @@ public class GuardAI : MonoBehaviour
         }
     }
 
+    [System.Obsolete]
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.CompareTag("Player"))
