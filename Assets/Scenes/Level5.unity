@@ -36510,12 +36510,16 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7534807684117086077, guid: f0a8c7c8ef0bdcd4da3a7949d9f7d84a, type: 3}
+      propertyPath: leftAngle
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7534807684117086077, guid: f0a8c7c8ef0bdcd4da3a7949d9f7d84a, type: 3}
       propertyPath: rightAngle
       value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 7534807684117086077, guid: f0a8c7c8ef0bdcd4da3a7949d9f7d84a, type: 3}
       propertyPath: rotateSpeed
-      value: 40
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8238377385487101597, guid: f0a8c7c8ef0bdcd4da3a7949d9f7d84a, type: 3}
       propertyPath: m_LocalPosition.x
