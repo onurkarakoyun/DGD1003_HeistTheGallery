@@ -50,7 +50,7 @@ The game is a 2D cartoon-style stealth puzzle game where the main character trie
 
 \- \*\*A-D / Arrow Keys\*\* – Move character
 
-\- \*\*Z\*\* – Switch character
+\- \*\*Q\*\* – Switch character
 
 \- \*\*E\*\* – Interact with objects
 
@@ -180,7 +180,7 @@ The game takes place inside a realistic urban art gallery located in a modern ci
 
 
 
-●Atmosphere: 
+●Atmosphere:
 
 
 
@@ -192,7 +192,7 @@ The intended atmosphere is tense and suspenseful, encouraging careful movement a
 
 
 
-●Art Style: 
+●Art Style:
 
 
 
@@ -200,7 +200,7 @@ The game features a 2D cartoon-style visual design with clean outlines, vibrant 
 
 
 
-●Interface (UI): 
+●Interface (UI):
 
 
 
@@ -208,7 +208,7 @@ The user interface is minimal and clean, displaying only essential elements such
 
 
 
-●Music: 
+●Music:
 
 
 
@@ -216,7 +216,7 @@ The music consists of low-tempo, suspenseful background tracks that intensify du
 
 
 
-●Sound Effects: 
+●Sound Effects:
 
 
 
@@ -226,7 +226,7 @@ Sound effects include footsteps and alarm sirens.
 
 5\. Additional Information
 
-●Reference Games: 
+●Reference Games:
 
 
 
@@ -236,7 +236,7 @@ Sound effects include footsteps and alarm sirens.
 
 
 
-●Concept Art: 
+●Concept Art:
 
 
 
@@ -244,11 +244,9 @@ Concept art includes early sketches of the main character, enemy guards, gallery
 
 
 
-●Other: 
+●Other:
 
 
 
 The game is designed for PC platforms and focuses on short, replayable levels with increasing difficulty and optional challenges.
-
-
 
