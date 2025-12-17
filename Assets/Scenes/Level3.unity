@@ -21556,8 +21556,8 @@ MonoBehaviour:
   smoothTime: 0
   lockY: 1
   useLimits: 1
-  minX: -15.21
-  maxX: 53.02
+  minX: -6.1
+  maxX: 44.2
 --- !u!1001 &1705746318
 PrefabInstance:
   m_ObjectHideFlags: 0
