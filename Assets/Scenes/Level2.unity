@@ -22190,7 +22190,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainMenuSceneName: MainMenu
-  targetTime: 35
+  targetTime: 55
   gameHUD: {fileID: 21997697}
   winPanel: {fileID: 788431410}
   losePanel: {fileID: 1134988985}
