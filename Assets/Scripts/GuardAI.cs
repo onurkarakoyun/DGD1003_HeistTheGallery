@@ -8,8 +8,11 @@ public class GuardAI : MonoBehaviour
     public Transform leftPoint;
     public Transform rightPoint;
 
+    [Header("Hedef Etiketleri")]
+    public string thiefTag = "Player";
+    
     [Header("Referanslar")]
-    public Transform player;
+    public Transform target;
     public Transform visionArea; 
     public Animator anim;
 
@@ -17,59 +20,80 @@ public class GuardAI : MonoBehaviour
     private SpriteRenderer sr;
 
     private bool goingRight = true;
-    
     public bool isChasing = false; 
+
     [Header("Ses Efektleri")]
     public AudioSource guardAudio;
     public AudioClip chaseSound;
+
+    private float catchDistance = 1.0f; 
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
 
-        if (anim == null)
-            anim = GetComponent<Animator>();
-
+        if (anim == null) anim = GetComponent<Animator>();
+        
         if (leftPoint != null) leftPoint.parent = null;
         if (rightPoint != null) rightPoint.parent = null;
     }
 
+    [System.Obsolete]
     void Update()
     {
-        if (player == null || !player.gameObject.activeInHierarchy || !player.CompareTag("Player"))
+        GameObject activeThief = GameObject.FindGameObjectWithTag(thiefTag);
+        if (activeThief == null || !activeThief.activeInHierarchy)
         {
+            target = null;
             isChasing = false;
+        }
+        else
+        {
+            if (isChasing && target == null)
+            {
+                target = activeThief.transform;
+            }
         }
 
         Vector2 moveDirection = Vector2.zero;
-
-        if (isChasing)
+        if (isChasing && target != null)
         {
-            moveDirection = (player.position - transform.position).normalized;
+            moveDirection = (target.position - transform.position).normalized;
             ChasePlayer(moveDirection);
-            if (!guardAudio.isPlaying)
+            
+            if (guardAudio != null && chaseSound != null && !guardAudio.isPlaying)
             {
-            guardAudio.clip = chaseSound;
-            guardAudio.Play();
+                guardAudio.clip = chaseSound;
+                guardAudio.Play();
+            }
+
+            // Yakalama Kontrolü
+            float distanceToPlayer = Vector2.Distance(transform.position, target.position);
+            if (distanceToPlayer < catchDistance)
+            {
+                CatchThePlayer();
             }
         }
         else
         {
             Patrol();
             moveDirection = goingRight ? Vector2.right : Vector2.left;
-            if (guardAudio.isPlaying)
+            
+            if (guardAudio != null && guardAudio.isPlaying)
             {
-            guardAudio.Stop();
+                guardAudio.Stop();
             }
         }
 
+        // Görüş Alanı
         if (visionArea != null)
         {
             float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
             visionArea.localRotation = Quaternion.Euler(0, 0, angle);
         }
 
+        // Animasyon
         if (anim != null)
         {
             anim.SetBool("isChasing", isChasing);
@@ -86,44 +110,52 @@ public class GuardAI : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(speed, rb.linearVelocity.y);
             sr.flipX = false;
-
-            if (transform.position.x >= rightPoint.position.x)
-                goingRight = false;
+            if (transform.position.x >= rightPoint.position.x) goingRight = false;
         }
         else
         {
             rb.linearVelocity = new Vector2(-speed, rb.linearVelocity.y);
             sr.flipX = true;
-
-            if (transform.position.x <= leftPoint.position.x)
-                goingRight = true;
+            if (transform.position.x <= leftPoint.position.x) goingRight = true;
         }
     }
 
     void ChasePlayer(Vector2 direction)
     {
         rb.linearVelocity = new Vector2(direction.x * chaseSpeed, rb.linearVelocity.y);
-        
         if (direction.x > 0) sr.flipX = false;
         else if (direction.x < 0) sr.flipX = true;
     }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag(thiefTag))
         {
-            player = collision.transform;
+            target = collision.transform;
             isChasing = true;
+        }
+    }
+    
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.CompareTag(thiefTag))
+        {
+             if(!isChasing)
+             {
+                 target = collision.transform;
+                 isChasing = true;
+             }
         }
     }
 
     [System.Obsolete]
-    private void OnCollisionEnter2D(Collision2D collision)
+    void CatchThePlayer()
     {
-        if (collision.collider.CompareTag("Player"))
+        Debug.Log("YAKALANDIN!");
+        if(target != null && target.CompareTag(thiefTag))
         {
-            if (LevelManager.instance != null)
-                LevelManager.instance.GameOver();
+            isChasing = false;
+            rb.linearVelocity = Vector2.zero;
+            if (LevelManager.instance != null) LevelManager.instance.GameOver();
         }
     }
 }
